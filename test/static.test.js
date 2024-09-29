@@ -1112,7 +1112,7 @@ t.test('allowedPath option - request', (t) => {
   })
 })
 
-t.test('download', (t) => {
+t.test('downloadStatic', (t) => {
   t.plan(7)
 
   const pluginOptions = {
@@ -1123,26 +1123,26 @@ t.test('download', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo/bar', function (req, reply) {
-    reply.download('/index.html')
+    reply.downloadStatic('/index.html')
   })
 
   fastify.get('/foo/bar/change', function (req, reply) {
-    reply.download('/index.html', 'hello-world.html')
+    reply.downloadStatic('/index.html', 'hello-world.html')
   })
 
   fastify.get('/foo/bar/override', function (req, reply) {
-    reply.download('/index.html', 'hello-world.html', {
+    reply.downloadStatic('/index.html', 'hello-world.html', {
       maxAge: '2 hours',
       immutable: true
     })
   })
 
   fastify.get('/foo/bar/override/2', function (req, reply) {
-    reply.download('/index.html', { acceptRanges: false })
+    reply.downloadStatic('/index.html', { acceptRanges: false })
   })
 
   fastify.get('/root/path/override/test', (request, reply) => {
-    reply.download('/foo.html', {
+    reply.downloadStatic('/foo.html', {
       root: path.join(
         __dirname,
         'static',
@@ -1156,7 +1156,7 @@ t.test('download', (t) => {
   })
 
   fastify.get('/root/path/override/test/change', (request, reply) => {
-    reply.download('/foo.html', 'hello-world.html', {
+    reply.downloadStatic('/foo.html', 'hello-world.html', {
       root: path.join(
         __dirname,
         'static',
@@ -1174,7 +1174,7 @@ t.test('download', (t) => {
 
     fastify.server.unref()
 
-    t.test('reply.download()', (t) => {
+    t.test('reply.downloadStatic()', (t) => {
       t.plan(4 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -1189,7 +1189,7 @@ t.test('download', (t) => {
       })
     })
 
-    t.test('reply.download() with fileName', t => {
+    t.test('reply.downloadStatic() with fileName', t => {
       t.plan(4 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -1204,7 +1204,7 @@ t.test('download', (t) => {
       })
     })
 
-    t.test('reply.download() with fileName', (t) => {
+    t.test('reply.downloadStatic() with fileName', (t) => {
       t.plan(4 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -1219,7 +1219,7 @@ t.test('download', (t) => {
       })
     })
 
-    t.test('reply.download() with custom opts', (t) => {
+    t.test('reply.downloadStatic() with custom opts', (t) => {
       t.plan(5 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -1235,7 +1235,7 @@ t.test('download', (t) => {
       })
     })
 
-    t.test('reply.download() with custom opts (2)', (t) => {
+    t.test('reply.downloadStatic() with custom opts (2)', (t) => {
       t.plan(5 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -1251,7 +1251,7 @@ t.test('download', (t) => {
       })
     })
 
-    t.test('reply.download() with rootPath and fileName', (t) => {
+    t.test('reply.downloadStatic() with rootPath and fileName', (t) => {
       t.plan(4 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -1307,7 +1307,7 @@ t.test('sendFileStatic disabled', (t) => {
   })
 })
 
-t.test('download disabled', (t) => {
+t.test('downloadStatic disabled', (t) => {
   t.plan(3)
 
   const pluginOptions = {
@@ -1319,8 +1319,8 @@ t.test('download disabled', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo/bar', function (req, reply) {
-    if (reply.download === undefined) {
-      t.equal(reply.download, undefined)
+    if (reply.downloadStatic === undefined) {
+      t.equal(reply.downloadStatic, undefined)
       reply.send('pass')
     } else {
       reply.send('fail')

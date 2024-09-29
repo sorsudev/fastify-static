@@ -134,16 +134,16 @@ appWithHttp2
       reply.sendFileStatic('some-file-name')
     })
 
-    appWithHttp2.get('/download', (request, reply) => {
-      reply.download('some-file-name')
+    appWithHttp2.get('/downloadStatic', (request, reply) => {
+      reply.downloadStatic('some-file-name')
     })
 
-    appWithHttp2.get('/download/1', (request, reply) => {
-      reply.download('some-file-name', { maxAge: '2 days' })
+    appWithHttp2.get('/downloadStatic/1', (request, reply) => {
+      reply.downloadStatic('some-file-name', { maxAge: '2 days' })
     })
 
-    appWithHttp2.get('/download/2', (request, reply) => {
-      reply.download('some-file-name', 'some-filename', { cacheControl: false, acceptRanges: true })
+    appWithHttp2.get('/downloadStatic/2', (request, reply) => {
+      reply.downloadStatic('some-file-name', 'some-filename', { cacheControl: false, acceptRanges: true })
     })
   })
 
@@ -165,16 +165,16 @@ multiRootAppWithImplicitHttp
       reply.sendFileStatic('some-file-name', 'some-root-name', { cacheControl: false, acceptRanges: true })
     })
 
-    multiRootAppWithImplicitHttp.get('/download', (request, reply) => {
-      reply.download('some-file-name')
+    multiRootAppWithImplicitHttp.get('/downloadStatic', (request, reply) => {
+      reply.downloadStatic('some-file-name')
     })
 
-    multiRootAppWithImplicitHttp.get('/download/1', (request, reply) => {
-      reply.download('some-file-name', { maxAge: '2 days' })
+    multiRootAppWithImplicitHttp.get('/downloadStatic/1', (request, reply) => {
+      reply.downloadStatic('some-file-name', { maxAge: '2 days' })
     })
 
-    multiRootAppWithImplicitHttp.get('/download/2', (request, reply) => {
-      reply.download('some-file-name', 'some-filename', { cacheControl: false, acceptRanges: true })
+    multiRootAppWithImplicitHttp.get('/downloadStatic/2', (request, reply) => {
+      reply.downloadStatic('some-file-name', 'some-filename', { cacheControl: false, acceptRanges: true })
     })
   })
 

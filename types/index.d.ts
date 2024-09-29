@@ -10,9 +10,9 @@ declare module 'fastify' {
     sendFileStatic(filename: string, rootPath?: string): FastifyReply;
     sendFileStatic(filename: string, options?: fastifyStatic.SendOptions): FastifyReply;
     sendFileStatic(filename: string, rootPath?: string, options?: fastifyStatic.SendOptions): FastifyReply;
-    download(filepath: string, options?: fastifyStatic.SendOptions): FastifyReply;
-    download(filepath: string, filename?: string): FastifyReply;
-    download(filepath: string, filename?: string, options?: fastifyStatic.SendOptions): FastifyReply;
+    downloadStatic(filepath: string, options?: fastifyStatic.SendOptions): FastifyReply;
+    downloadStatic(filepath: string, filename?: string): FastifyReply;
+    downloadStatic(filepath: string, filename?: string, options?: fastifyStatic.SendOptions): FastifyReply;
   }
 }
 

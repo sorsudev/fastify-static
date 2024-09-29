@@ -84,20 +84,20 @@ fastify.register(require('@fastify/static'), {
 })
 
 fastify.get('/another/path', function (req, reply) {
-  reply.download('myHtml.html', 'custom-filename.html') // sending path.join(__dirname, 'public', 'myHtml.html') directly with custom filename
+  reply.downloadStatic('myHtml.html', 'custom-filename.html') // sending path.join(__dirname, 'public', 'myHtml.html') directly with custom filename
 })
 
 fastify.get('another/patch-async', async function (req, reply) {
   // an async handler must always return the reply object
-  return reply.download('myHtml.html', 'custom-filename.html')
+  return reply.downloadStatic('myHtml.html', 'custom-filename.html')
 })
 
 fastify.get('/path/without/cache/control', function (req, reply) {
-  reply.download('myHtml.html', { cacheControl: false }) // serving a file disabling cache-control headers
+  reply.downloadStatic('myHtml.html', { cacheControl: false }) // serving a file disabling cache-control headers
 })
 
 fastify.get('/path/without/cache/control', function (req, reply) {
-  reply.download('myHtml.html', 'custom-filename.html', { cacheControl: false })
+  reply.downloadStatic('myHtml.html', 'custom-filename.html', { cacheControl: false })
 })
 
 ```
@@ -165,7 +165,7 @@ The following options are also supported and will be passed directly to the
 - [`lastModified`](https://www.npmjs.com/package/send#lastmodified)
 - [`maxAge`](https://www.npmjs.com/package/send#maxage)
 
-You're able to alter this options when calling `reply.download('filename.html', options)` or `reply.download('filename.html', 'otherfilename.html', options)` on each response to a request.
+You're able to alter this options when calling `reply.downloadStatic('filename.html', options)` or `reply.downloadStatic('filename.html', 'otherfilename.html', options)` on each response to a request.
 
 #### `redirect`
 

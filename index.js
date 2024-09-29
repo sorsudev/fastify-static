@@ -90,7 +90,7 @@ async function fastifyStatic (fastify, opts) {
     })
 
     fastify.decorateReply(
-      'download',
+      'downloadStatic',
       function (filePath, fileName, options = {}) {
         const { root, ...opts } =
           typeof fileName === 'object' ? fileName : options
