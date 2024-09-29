@@ -30,19 +30,19 @@ fastify.register(require('@fastify/static'), {
 })
 
 fastify.get('/another/path', function (req, reply) {
-  reply.sendFile('myHtml.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+  reply.sendFileStatic('myHtml.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
 })
 
 fastify.get('/another/patch-async', async function (req, reply) {
-  return reply.sendFile('myHtml.html')
+  return reply.sendFileStatic('myHtml.html')
 })
 
 fastify.get('/path/with/different/root', function (req, reply) {
-  reply.sendFile('myHtml.html', path.join(__dirname, 'build')) // serving a file from a different root location
+  reply.sendFileStatic('myHtml.html', path.join(__dirname, 'build')) // serving a file from a different root location
 })
 
 fastify.get('/another/path', function (req, reply) {
-  reply.sendFile('myHtml.html', { cacheControl: false }) // overriding the options disabling cache-control headers
+  reply.sendFileStatic('myHtml.html', { cacheControl: false }) // overriding the options disabling cache-control headers
 })
 
 // Run the server!
@@ -441,7 +441,7 @@ If you would just like to use the reply decorator and not serve whole directorie
 
 #### Disabling reply decorator
 
-The reply object is decorated with a `sendFile` function by default.  If you want to
+The reply object is decorated with a `sendFileStatic` function by default.  If you want to
 disable this, pass the option `{ decorateReply: false }`.  If @fastify/static is
 registered to multiple prefixes in the same route only one can initialize reply
 decorators.
@@ -463,7 +463,7 @@ app.register((childContext, _, done) => {
         wildcard: false
     });
     childContext.setNotFoundHandler((_, reply) => {
-        return reply.code(404).type('text/html').sendFile('404.html');
+        return reply.code(404).type('text/html').sendFileStatic('404.html');
     });
     done();
 }, { prefix: 'docs' });

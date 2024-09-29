@@ -7,9 +7,9 @@ import { Stats } from 'fs'
 
 declare module 'fastify' {
   interface FastifyReply {
-    sendFile(filename: string, rootPath?: string): FastifyReply;
-    sendFile(filename: string, options?: fastifyStatic.SendOptions): FastifyReply;
-    sendFile(filename: string, rootPath?: string, options?: fastifyStatic.SendOptions): FastifyReply;
+    sendFileStatic(filename: string, rootPath?: string): FastifyReply;
+    sendFileStatic(filename: string, options?: fastifyStatic.SendOptions): FastifyReply;
+    sendFileStatic(filename: string, rootPath?: string, options?: fastifyStatic.SendOptions): FastifyReply;
     download(filepath: string, options?: fastifyStatic.SendOptions): FastifyReply;
     download(filepath: string, filename?: string): FastifyReply;
     download(filepath: string, filename?: string, options?: fastifyStatic.SendOptions): FastifyReply;

@@ -121,7 +121,7 @@ appWithImplicitHttp
   .register(fastifyStatic, options)
   .after(() => {
     appWithImplicitHttp.get('/', (request, reply) => {
-      reply.sendFile('some-file-name')
+      reply.sendFileStatic('some-file-name')
     })
   })
 
@@ -131,7 +131,7 @@ appWithHttp2
   .register(fastifyStatic, options)
   .after(() => {
     appWithHttp2.get('/', (request, reply) => {
-      reply.sendFile('some-file-name')
+      reply.sendFileStatic('some-file-name')
     })
 
     appWithHttp2.get('/download', (request, reply) => {
@@ -154,15 +154,15 @@ multiRootAppWithImplicitHttp
   .register(fastifyStatic, options)
   .after(() => {
     multiRootAppWithImplicitHttp.get('/', (request, reply) => {
-      reply.sendFile('some-file-name')
+      reply.sendFileStatic('some-file-name')
     })
 
     multiRootAppWithImplicitHttp.get('/', (request, reply) => {
-      reply.sendFile('some-file-name', { cacheControl: false, acceptRanges: true })
+      reply.sendFileStatic('some-file-name', { cacheControl: false, acceptRanges: true })
     })
 
     multiRootAppWithImplicitHttp.get('/', (request, reply) => {
-      reply.sendFile('some-file-name', 'some-root-name', { cacheControl: false, acceptRanges: true })
+      reply.sendFileStatic('some-file-name', 'some-root-name', { cacheControl: false, acceptRanges: true })
     })
 
     multiRootAppWithImplicitHttp.get('/download', (request, reply) => {

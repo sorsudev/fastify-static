@@ -559,11 +559,11 @@ t.test('register /static and /static2', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo', (req, rep) => {
-    rep.sendFile('foo.html')
+    rep.sendFileStatic('foo.html')
   })
 
   fastify.get('/bar', (req, rep) => {
-    rep.sendFile('bar.html')
+    rep.sendFileStatic('bar.html')
   })
 
   t.teardown(fastify.close.bind(fastify))
@@ -600,7 +600,7 @@ t.test('register /static and /static2', (t) => {
       })
     })
 
-    t.test('sendFile foo.html', (t) => {
+    t.test('sendFileStatic foo.html', (t) => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -613,7 +613,7 @@ t.test('register /static and /static2', (t) => {
       })
     })
 
-    t.test('sendFile bar.html', (t) => {
+    t.test('sendFileStatic bar.html', (t) => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -865,7 +865,7 @@ t.test('serving disabled', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo/bar', (request, reply) => {
-    reply.sendFile('index.html')
+    reply.sendFileStatic('index.html')
   })
 
   t.teardown(fastify.close.bind(fastify))
@@ -886,7 +886,7 @@ t.test('serving disabled', (t) => {
       })
     })
 
-    t.test('/static/index.html via sendFile found', (t) => {
+    t.test('/static/index.html via sendFileStatic found', (t) => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -901,7 +901,7 @@ t.test('serving disabled', (t) => {
   })
 })
 
-t.test('sendFile', (t) => {
+t.test('sendFileStatic', (t) => {
   t.plan(5)
 
   const pluginOptions = {
@@ -913,18 +913,18 @@ t.test('sendFile', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo/bar', function (req, reply) {
-    reply.sendFile('/index.html')
+    reply.sendFileStatic('/index.html')
   })
 
   fastify.get('/root/path/override/test', (request, reply) => {
-    reply.sendFile(
+    reply.sendFileStatic(
       '/foo.html',
       path.join(__dirname, 'static', 'deep', 'path', 'for', 'test', 'purpose')
     )
   })
 
   fastify.get('/foo/bar/options/override/test', function (req, reply) {
-    reply.sendFile('/index.html', { maxAge })
+    reply.sendFileStatic('/index.html', { maxAge })
   })
 
   fastify.listen({ port: 0 }, (err) => {
@@ -932,7 +932,7 @@ t.test('sendFile', (t) => {
 
     fastify.server.unref()
 
-    t.test('reply.sendFile()', (t) => {
+    t.test('reply.sendFileStatic()', (t) => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -946,7 +946,7 @@ t.test('sendFile', (t) => {
       })
     })
 
-    t.test('reply.sendFile() with rootPath', (t) => {
+    t.test('reply.sendFileStatic() with rootPath', (t) => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -960,7 +960,7 @@ t.test('sendFile', (t) => {
       })
     })
 
-    t.test('reply.sendFile() again without root path', (t) => {
+    t.test('reply.sendFileStatic() again without root path', (t) => {
       t.plan(3 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -974,7 +974,7 @@ t.test('sendFile', (t) => {
       })
     })
 
-    t.test('reply.sendFile() with options', (t) => {
+    t.test('reply.sendFileStatic() with options', (t) => {
       t.plan(4 + GENERIC_RESPONSE_CHECK_COUNT)
       simple.concat({
         method: 'GET',
@@ -991,7 +991,7 @@ t.test('sendFile', (t) => {
   })
 })
 
-t.test('sendFile disabled', (t) => {
+t.test('sendFileStatic disabled', (t) => {
   t.plan(2)
 
   const pluginOptions = {
@@ -1003,7 +1003,7 @@ t.test('sendFile disabled', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo/bar', function (req, reply) {
-    if (reply.sendFile === undefined) {
+    if (reply.sendFileStatic === undefined) {
       reply.send('pass')
     } else {
       reply.send('fail')
@@ -1015,7 +1015,7 @@ t.test('sendFile disabled', (t) => {
 
     fastify.server.unref()
 
-    t.test('reply.sendFile undefined', (t) => {
+    t.test('reply.sendFileStatic undefined', (t) => {
       t.plan(3)
       simple.concat({
         method: 'GET',
@@ -1268,7 +1268,7 @@ t.test('download', (t) => {
   })
 })
 
-t.test('sendFile disabled', (t) => {
+t.test('sendFileStatic disabled', (t) => {
   t.plan(2)
 
   const pluginOptions = {
@@ -1280,7 +1280,7 @@ t.test('sendFile disabled', (t) => {
   fastify.register(fastifyStatic, pluginOptions)
 
   fastify.get('/foo/bar', function (req, reply) {
-    if (reply.sendFile === undefined) {
+    if (reply.sendFileStatic === undefined) {
       reply.send('pass')
     } else {
       reply.send('fail')
@@ -1292,7 +1292,7 @@ t.test('sendFile disabled', (t) => {
 
     fastify.server.unref()
 
-    t.test('reply.sendFile undefined', (t) => {
+    t.test('reply.sendFileStatic undefined', (t) => {
       t.plan(3)
       simple.concat({
         method: 'GET',
@@ -1332,7 +1332,7 @@ t.test('download disabled', (t) => {
 
     fastify.server.unref()
 
-    t.test('reply.sendFile undefined', (t) => {
+    t.test('reply.sendFileStatic undefined', (t) => {
       t.plan(3)
       simple.concat({
         method: 'GET',
